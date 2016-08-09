@@ -4,10 +4,10 @@
 
 <html>
 <head>
-    <title>Devcolibri.com</title>
+    <title>Department</title>
 </head>
 <body>
-    <h1>Hello ${requestScope.name}</h1>
+    <h1>Personal List of Department ${requestScope.name}</h1>
     <table>
         <tr>
             <td>id</td>
@@ -23,6 +23,7 @@
                 <td>${u.created}</td>
             </tr>
         </c:forEach>
+
     </table>
 
     <form method="post" action="<c:url value='/users' />">
@@ -30,8 +31,20 @@
         <input type="text" placeholder="Surname" name="userSurname" value="${userSurname}" />
         <%--<input type="date" placeholder="created" name="created" value="${created}" />--%>
         <%--<input type="text" placeholder="dep_id" name="dep_id" value="${dep_id}" />--%>
-        <input type="submit" value="Create user" />
+        <input type="submit" value="Add user" />
+
     </form>
+
+    <form method="post" action="<c:url value='/users' />">
+        <input type="text" placeholder="Name" name="userName" value="${userName}" />
+        <input type="text" placeholder="Surname" name="userSurname" value="${userSurname}" />
+        <input type="button" value="Modify" oncklik="modify()" />
+        </form>
+
+        <form method="post" action="<c:url value='/id' />">
+        <input type="submit" placeholder="id" name="userId" value="${userId}" />
+            <input type="submit" value="delete" />
+        </form>
 
 </body>
 </html>

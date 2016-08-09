@@ -13,4 +13,7 @@ public interface UserRepository {
     List<User> getUsers();
 
     User saveUser(String userName, String userSurname, Date created, Integer departmentId);
+
+    User deleteUser(String id);
+
 }

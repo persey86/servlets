@@ -87,4 +87,32 @@ public class UserRepositoryImpl implements UserRepository {
 
         return user;
     }
+    @Override
+    public User deleteUser(String id){
+        Connection connection = null;
+        User user = new User();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+            PreparedStatement pStm = connection.prepareStatement("DELETE FROM users WHERE id='?'");
+            pStm.setString(1, id);
+            int executeUpdate = pStm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("it will never be");
+                }
+            }
+        }
+
+        return user;
+    }
 }
