@@ -14,6 +14,9 @@ public interface UserRepository {
 
     User saveUser(String userName, String userSurname, Date created, Integer departmentId);
 
-    User deleteUser(String id);
+    Boolean deleteUser(Integer id);
 
+    User getUserById(Integer id);
+
+    Boolean updateUser(Integer id, String userName, String userSurname, Date created, Integer departmentId);
 }

@@ -52,6 +52,81 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public User getUserById(Integer id) {
+        Connection connection = null;
+        User user = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+            PreparedStatement pStm = connection.prepareStatement("SELECT * from users u where u.id = ?");
+            pStm.setInt(1, id);
+            ResultSet rs = pStm.executeQuery();
+
+            while (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setSurname(rs.getString("surname"));
+                user.setCreated(rs.getDate("created"));
+                user.setDepartmentId(rs.getInt("department_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("it will never be");
+                }
+            }
+        }
+
+        return user;
+    }
+
+    @Override
+    public Boolean updateUser(Integer id, String userName, String userSurname, java.util.Date created, Integer departmentId) {
+        Connection connection = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+
+            PreparedStatement pStm = connection.prepareStatement("UPDATE users SET name = ?, surname = ?, created = ?, department_id = ? WHERE id = ?");
+            pStm.setString(1, userName);
+            pStm.setString(2, userSurname);
+            pStm.setDate(3, new java.sql.Date(created.getTime()));
+            pStm.setInt(4, departmentId);
+            pStm.setInt(5, id);
+
+            int executeUpdate = pStm.executeUpdate();
+
+           return executeUpdate > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("it will never be");
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+
+    @Override
     public User saveUser(String userName, String userSurname, java.util.Date created, Integer departmentId) {
         Connection connection = null;
         User user = new User();
@@ -64,7 +139,6 @@ public class UserRepositoryImpl implements UserRepository {
             pStm.setDate(3, new java.sql.Date(created.getTime()));
             pStm.setInt(4, departmentId);
             int executeUpdate = pStm.executeUpdate();
-
 
             user.setDepartmentId(departmentId);
             user.setCreated(created);
@@ -87,16 +161,19 @@ public class UserRepositoryImpl implements UserRepository {
 
         return user;
     }
+
+
     @Override
-    public User deleteUser(String id){
+    public Boolean deleteUser(Integer id){
         Connection connection = null;
-        User user = new User();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
-            PreparedStatement pStm = connection.prepareStatement("DELETE FROM users WHERE id='?'");
-            pStm.setString(1, id);
+            PreparedStatement pStm = connection.prepareStatement("DELETE FROM users WHERE id= ?");
+            pStm.setInt(1, id);
             int executeUpdate = pStm.executeUpdate();
+
+            return executeUpdate > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,6 +190,6 @@ public class UserRepositoryImpl implements UserRepository {
             }
         }
 
-        return user;
+        return false;
     }
 }

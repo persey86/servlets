@@ -19,31 +19,60 @@ public class MainServlet extends HttpServlet {
 
     private UserRepositoryImpl userRepository = new UserRepositoryImpl();
 
-    public void service(HttpServletRequest req, HttpServletResponse resp)
+    public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String uri = req.getRequestURI();
-        String method = req.getMethod();
+        String uri = request.getRequestURI();
+        String method = request.getMethod();
 
 
         if (uri.equals("/") && method.equals("GET")) {
             List<User> users = userRepository.getUsers();
-            req.setAttribute("name", "Devcolibri");
-            req.setAttribute("users", users);
-            req.getRequestDispatcher("/WEB-INF/mypage.jsp").forward(req, resp);
+            request.setAttribute("name", "Devcolibri");
+            request.setAttribute("users", users);
+            request.getRequestDispatcher("/WEB-INF/mypage.jsp").forward(request, response);
         } else if (uri.equals("/users") && method.equals("POST")) {
-            String userName = req.getParameter("userName");
-            String userSurname = req.getParameter("userSurname");
-            userRepository.saveUser(userName, userSurname, new Date(), 4);
 
-        }else if (uri.equals("/id") && method.equals("POST")){
-            String id=req.getParameter("userId");
-            userRepository.deleteUser(id);
+            // general functionality for add use and update user
+            String id = request.getParameter("id");
+            String userName = request.getParameter("userName");
+            String userSurname = request.getParameter("userSurname");
+            String departmentId = request.getParameter("departmentId");
 
+            Integer departmentIdInt = Integer.parseInt(departmentId);
+
+            if (id == null) {
+                // if there is no id we create new user
+                userRepository.saveUser(userName, userSurname, new Date(), departmentIdInt);
+            } else {
+                // if id is not null we update user
+                Integer idInt = Integer.parseInt(id);
+                Boolean aBoolean = userRepository.updateUser(idInt, userName, userSurname, new Date(), departmentIdInt);
+                if (!aBoolean) {
+                    // if there is no updated rows in database - redirect to error page
+                    response.sendRedirect("/error");
+                }
+            }
+            response.sendRedirect("/");
+
+        } else if (uri.equals("/user/delete") && method.equals("POST")) {
+            String userId = request.getParameter("departmentId");
+            Integer userIdInt = Integer.parseInt(userId);
+            userRepository.deleteUser(userIdInt);
+            response.sendRedirect("/");
+        }else if (uri.contains("/user/edit/") && method.equals("GET")) {
+            String[] urlParams = uri.split("/");
+            String userId = urlParams[urlParams.length-1];
+            Integer userIdInt = Integer.parseInt(userId);
+
+            User currentUser = userRepository.getUserById(userIdInt);
+
+            request.setAttribute("currentUser", currentUser);
+            request.getRequestDispatcher("/WEB-INF/editUser.jsp").forward(request, response);
         } else if (uri.equals("/error")) {
-            req.getRequestDispatcher("/WEB-INF/error.jsp").forward(req, resp);
+            request.getRequestDispatcher("/WEB-INF/error.jsp").forward(request, response);
         } else {
-            resp.sendRedirect("/error");
+            response.sendRedirect("/error");
         }
 
     }

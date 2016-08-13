@@ -5,46 +5,89 @@
 <html>
 <head>
     <title>Department</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
-    <h1>Personal List of Department ${requestScope.name}</h1>
-    <table>
-        <tr>
-            <td>id</td>
-            <td>Name</td>
-            <td>Surname</td>
-            <td>Created</td>
-        </tr>
-        <c:forEach var="u" items="${requestScope.users}">
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/departments">Departments</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="main container">
+
+    <div class="row">
+        <h1>Personal List of Department ${requestScope.name}</h1>
+
+
+    </div>
+
+    <div class="row">
+        <table>
             <tr>
-                <td>${u.id}</td>
-                <td>${u.name}</td>
-                <td>${u.surname}</td>
-                <td>${u.created}</td>
+                <td>id</td>
+                <td>Name</td>
+                <td>Surname</td>
+                <td>Created</td>
+                <td></td>
+                <td></td>
             </tr>
-        </c:forEach>
+            <c:forEach var="u" items="${requestScope.users}">
+                <tr>
+                    <td>${u.id}</td>
+                    <td>${u.name}</td>
+                    <td>${u.surname}</td>
+                    <td>${u.created}</td>
+                    <td><a href="/user/edit/${u.id}">Edit</a></td>
+                    <td>
+                        <form method="post" action="<c:url value='/user/delete' />">
+                            <input type="hidden" name="departmentId" value="${u.id}">
+                            <input type="submit" value="Delete user"/>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
 
-    </table>
+        </table>
+    </div>
 
-    <form method="post" action="<c:url value='/users' />">
-        <input type="text" placeholder="Name" name="userName" value="${userName}" />
-        <input type="text" placeholder="Surname" name="userSurname" value="${userSurname}" />
-        <%--<input type="date" placeholder="created" name="created" value="${created}" />--%>
-        <%--<input type="text" placeholder="dep_id" name="dep_id" value="${dep_id}" />--%>
-        <input type="submit" value="Add user" />
-
-    </form>
-
-    <form method="post" action="<c:url value='/users' />">
-        <input type="text" placeholder="Name" name="userName" value="${userName}" />
-        <input type="text" placeholder="Surname" name="userSurname" value="${userSurname}" />
-        <input type="button" value="Modify" oncklik="modify()" />
+    <div class="row">
+        <form method="post" action="<c:url value='/users' />">
+            <input type="text" placeholder="Name" name="userName"/>
+            <input type="text" placeholder="Surname" name="userSurname"/>
+            <%--<input type="date" placeholder="created" name="created" />--%>
+            <input type="text" placeholder="departmentId" name="departmentId" value="4"/>
+            <input type="submit" value="Add user"/>
         </form>
 
-        <form method="post" action="<c:url value='/id' />">
-        <input type="submit" placeholder="id" name="userId" value="${userId}" />
-            <input type="submit" value="delete" />
-        </form>
+    </div>
+
+
+
+</div>
+
+
+<footer>Footer</footer>
 
 </body>
 </html>
