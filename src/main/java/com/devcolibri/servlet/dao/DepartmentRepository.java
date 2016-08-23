@@ -14,7 +14,7 @@ public interface DepartmentRepository {
 
     Department saveDepartment(String name, Date created);
 
-    Boolean deleteDepartment(Integer departmentId);
+    boolean deleteDepartment(Integer departmentId);
 
     Department getDepartmentById(Integer id);
 
