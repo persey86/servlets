@@ -54,7 +54,6 @@
                 <tr>
                     <td>${u.id}</td>
                     <td>${u.name}</td>
-                    <td>${u.surname}</td>
                     <td>${u.created}</td>
                     <td><a href="/user/edit/${u.id}">Edit</a></td>
                     <td>
@@ -72,7 +71,6 @@
     <div class="row">
         <form method="post" action="<c:url value='/users' />">
             <input type="text" placeholder="Name" name="userName"/>
-            <input type="text" placeholder="Surname" name="userSurname"/>
             <%--<input type="date" placeholder="created" name="created" />--%>
             <input type="text" placeholder="departmentId" name="departmentId" value="4"/>
             <input type="submit" value="Add user"/>
