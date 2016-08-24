@@ -9,29 +9,11 @@
 <html>
 <head>
     <title>Department</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/departments">Departments</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
 
 <div class="main container">
 
@@ -50,15 +32,15 @@
                 <td></td>
                 <td></td>
             </tr>
-            <c:forEach var="u" items="${requestScope.users}">
+            <c:forEach var="departments" items="${requestScope.departments}">
                 <tr>
-                    <td>${u.id}</td>
-                    <td>${u.name}</td>
-                    <td>${u.created}</td>
-                    <td><a href="/user/edit/${u.id}">Edit</a></td>
+                    <td>${departments.id}</td>
+                    <td>${departments.name}</td>
+                    <td>${departments.created}</td>
+                    <td><a href="/department/edit/${departments.id}">Edit</a></td>
                     <td>
-                        <form method="post" action="<c:url value='/user/delete' />">
-                            <input type="hidden" name="departmentId" value="${u.id}">
+                        <form method="post" action="<c:url value='/department/delete' />">
+                            <input type="hidden" name="id" value="${departments.id}">
                             <input type="submit" value="Delete user"/>
                         </form>
                     </td>
@@ -69,10 +51,10 @@
     </div>
 
     <div class="row">
-        <form method="post" action="<c:url value='/users' />">
-            <input type="text" placeholder="Name" name="userName"/>
+        <form method="post" action="<c:url value='/department' />">
+            <input type="text" placeholder="Name" name="name"/>
             <%--<input type="date" placeholder="created" name="created" />--%>
-            <input type="text" placeholder="departmentId" name="departmentId" value="4"/>
+            <input type="text" placeholder="id" name="id" value="1"/>
             <input type="submit" value="Add user"/>
         </form>
 
