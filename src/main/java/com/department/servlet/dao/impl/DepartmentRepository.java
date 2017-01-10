@@ -168,7 +168,6 @@ public class DepartmentRepository {
                     }
                 }
             }
-
             return false;
     }
 }
