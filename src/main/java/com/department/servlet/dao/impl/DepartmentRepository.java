@@ -136,7 +136,6 @@ public class DepartmentRepository {
                 }
             }
         }
-
         return department;
     }
 
