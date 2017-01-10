@@ -71,7 +71,6 @@ public class DepartmentRepository {
             }
         }
     }
-
     return department;
 }
 
@@ -100,7 +99,6 @@ public class DepartmentRepository {
                 }
             }
         }
-
         return false;
         }
 
