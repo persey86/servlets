@@ -1,8 +1,6 @@
-package com.devcolibri.servlet.dao.impl;
+package com.department.servlet.dao.impl;
 
-import com.devcolibri.servlet.dao.DepartmentRepository;
-import com.devcolibri.servlet.entities.Department;
-import com.devcolibri.servlet.entities.User;
+import com.department.servlet.entities.Department;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,12 +8,11 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Anastasia on 13.08.2016.
+ * Created on 2017.
  */
-public class DepartmentRepositoryImpl implements DepartmentRepository {
+public class DepartmentRepository {
 
 
-    @Override
     public List<Department> getDepartments() {
         Connection connection = null;
         List<Department> departments = new ArrayList<>();
@@ -48,7 +45,6 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         return departments;
     }
 
-    @Override
     public Department saveDepartment(String name, Date created) {
     Connection connection = null;
     Department department = new Department();
@@ -95,7 +91,6 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     return department;
 }
 
-    @Override
     public boolean deleteDepartment(Integer id) {
         Connection connection = null;
         try {
@@ -126,7 +121,6 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         }
 
 
-    @Override
     public Department getDepartmentById(Integer id) {
         Connection connection = null;
         Department department = null;
@@ -162,9 +156,6 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         return department;
     }
 
-
-
-    @Override
     public Boolean updateDepartment(Integer id, String name, Date created) {
             Connection connection = null;
             try {

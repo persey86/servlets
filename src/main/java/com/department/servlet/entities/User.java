@@ -1,16 +1,17 @@
-package com.devcolibri.servlet.entities;
+package com.department.servlet.entities;
 
 import java.util.Date;
 
 /**
- * Created by Anastasia on 11.06.2016.
+ * Created on 2017.
  */
 public class User {
         private Integer id;
         private Integer departmentId;
         private String name;
         private String surname;
-        private Date created;
+        private String email;
+            private Date created;
 
         public Integer getId() {
             return id;
@@ -43,6 +44,13 @@ public class User {
         public void setSurname(String surname) {
             this.surname = surname;
         }
+
+    public String getEmail(){
+        return email;
+    }
+    public void setEmail(String email){
+        this.email = email;
+    }
 
         public Date getCreated() {
             return created;

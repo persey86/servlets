@@ -1,21 +1,18 @@
-package com.devcolibri.servlet.dao.impl;
+package com.department.servlet.dao.impl;
 
 
 
-import com.devcolibri.servlet.dao.UserRepository;
-import com.devcolibri.servlet.entities.User;
+import com.department.servlet.entities.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 
 /**
- * Created by Anastasia on 11.06.2016.
+ * Created on 2017.
  */
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepository {
 
-    @Override
     public List<User> getUsers() {
         Connection connection = null;
         List<User> users = new ArrayList<>();
@@ -29,6 +26,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
                 user.setSurname(rs.getString("surname"));
+                user.setEmail(rs.getString("email"));
                 user.setCreated(rs.getDate("created"));
                 user.setDepartmentId(rs.getInt("department_id"));
                 users.add(user);
@@ -51,7 +49,6 @@ public class UserRepositoryImpl implements UserRepository {
         return users;
     }
 
-    @Override
     public User getUserById(Integer id) {
         Connection connection = null;
         User user = null;
@@ -67,6 +64,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setId(rs.getInt("id"));
                 user.setName(rs.getString("name"));
                 user.setSurname(rs.getString("surname"));
+                user.setEmail(rs.getString("email"));
                 user.setCreated(rs.getDate("created"));
                 user.setDepartmentId(rs.getInt("department_id"));
             }
@@ -88,19 +86,20 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
-    @Override
-    public Boolean updateUser(Integer id, String userName, String userSurname, java.util.Date created, Integer departmentId) {
+
+    public Boolean updateUser(Integer id, String userName, String userSurname, String userEmail, java.util.Date created, Integer departmentId) {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
 
-            PreparedStatement pStm = connection.prepareStatement("UPDATE users SET name = ?, surname = ?, created = ?, department_id = ? WHERE id = ?");
+            PreparedStatement pStm = connection.prepareStatement("UPDATE users SET name = ?, surname = ?, email = ?,created = ?, department_id = ? WHERE id = ?");
             pStm.setString(1, userName);
             pStm.setString(2, userSurname);
-            pStm.setDate(3, new java.sql.Date(created.getTime()));
-            pStm.setInt(4, departmentId);
-            pStm.setInt(5, id);
+            pStm.setString(3, userEmail);
+            pStm.setDate(4, new java.sql.Date(created.getTime()));
+            pStm.setInt(5, departmentId);
+            pStm.setInt(6, id);
 
             int executeUpdate = pStm.executeUpdate();
 
@@ -126,18 +125,19 @@ public class UserRepositoryImpl implements UserRepository {
 
 
 
-    @Override
-    public User saveUser(String userName, String userSurname, java.util.Date created, Integer departmentId) {
+
+    public User saveUser(String userName, String userSurname, String userEmail, java.util.Date created, Integer departmentId) {
         Connection connection = null;
         User user = new User();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
-            PreparedStatement pStm = connection.prepareStatement("INSERT INTO users (name, surname, created, department_id) VALUES (?, ?, ?, ?)");
+            PreparedStatement pStm = connection.prepareStatement("INSERT INTO users (name, surname, email, created, department_id) VALUES (?, ?, ?, ?, ?)");
             pStm.setString(1, userName);
             pStm.setString(2, userSurname);
-            pStm.setDate(3, new java.sql.Date(created.getTime()));
-            pStm.setInt(4, departmentId);
+            pStm.setString(3, userEmail);
+            pStm.setDate(4, new java.sql.Date(created.getTime()));
+            pStm.setInt(5, departmentId);
             int executeUpdate = pStm.executeUpdate();
 
             user.setDepartmentId(departmentId);
@@ -163,7 +163,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
 
-    @Override
     public Boolean deleteUser(Integer id){
         Connection connection = null;
         try {

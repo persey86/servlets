@@ -1,9 +1,9 @@
-package com.devcolibri.servlet;
+package com.department.servlet;
 
-import com.devcolibri.servlet.dao.impl.DepartmentRepositoryImpl;
-import com.devcolibri.servlet.dao.impl.UserRepositoryImpl;
-import com.devcolibri.servlet.entities.Department;
-import com.devcolibri.servlet.entities.User;
+import com.department.servlet.dao.impl.DepartmentRepository;
+import com.department.servlet.dao.impl.UserRepository;
+import com.department.servlet.entities.Department;
+import com.department.servlet.entities.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,11 +14,11 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Anastasia on 06.07.2016.
+ * Created on 06.07.2016.
  */
 public class MainServlet extends HttpServlet {
 
-    private UserRepositoryImpl userRepository = new UserRepositoryImpl();
+    private UserRepository userRepository = new UserRepository();
 
     public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -38,17 +38,18 @@ public class MainServlet extends HttpServlet {
             String id = request.getParameter("id");
             String userName = request.getParameter("userName");
             String userSurname = request.getParameter("userSurname");
+            String userEmail = request.getParameter("userEmail");
             String departmentId = request.getParameter("departmentId");
 
             Integer departmentIdInt = Integer.parseInt(departmentId);
 
             if (id == null) {
                 // if there is no id we create new user
-                userRepository.saveUser(userName, userSurname, new Date(), departmentIdInt);
+                userRepository.saveUser(userName, userSurname, userEmail, new Date(), departmentIdInt);
             } else {
                 // if id is not null we update user
                 Integer idInt = Integer.parseInt(id);
-                Boolean aBoolean = userRepository.updateUser(idInt, userName, userSurname, new Date(), departmentIdInt);
+                Boolean aBoolean = userRepository.updateUser(idInt, userName, userSurname, userEmail,new Date(), departmentIdInt);
                 if (!aBoolean) {
                     // if there is no updated rows in database - redirect to error page
                     response.sendRedirect("/error");
@@ -77,7 +78,7 @@ public class MainServlet extends HttpServlet {
         }
 
 
-        DepartmentRepositoryImpl departmentRepository = new DepartmentRepositoryImpl();
+        DepartmentRepository departmentRepository = new DepartmentRepository();
 
 
         if (uri.equals("/") && method.equals("GET")) {

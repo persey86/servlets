@@ -1,9 +1,9 @@
-package com.devcolibri.servlet.entities;
+package com.department.servlet.entities;
 
 import java.util.Date;
 
 /**
- * Created by Anastasia on 13.08.2016.
+ * Created 2017.
  */
 public class Department {
     private Integer id;
