@@ -11,7 +11,7 @@ public class User {
         private String name;
         private String surname;
         private String email;
-            private Date created;
+        private Date created;
 
         public Integer getId() {
             return id;

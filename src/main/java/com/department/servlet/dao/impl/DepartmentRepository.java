@@ -11,8 +11,6 @@ import java.util.List;
  * Created on 2017.
  */
 public class DepartmentRepository {
-
-
     public List<Department> getDepartments() {
         Connection connection = null;
         List<Department> departments = new ArrayList<>();
@@ -41,16 +39,13 @@ public class DepartmentRepository {
                 }
             }
         }
-
         return departments;
     }
 
     public Department saveDepartment(String name, Date created) {
     Connection connection = null;
     Department department = new Department();
-
     try
-
     {
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
@@ -62,23 +57,12 @@ public class DepartmentRepository {
         department.setName(name);
         department.setCreated(created);
     }
-    catch(
-    SQLException e
-    )
-
-    {
+    catch(SQLException e){
         e.printStackTrace();
     }
-
-    catch(
-    ClassNotFoundException e
-    )
-    {
+    catch(ClassNotFoundException e){
         e.printStackTrace();
-    }
-    finally
-
-    {
+    } finally{
         if (connection != null) {
             try {
                 connection.close();
@@ -186,8 +170,5 @@ public class DepartmentRepository {
             }
 
             return false;
-
-
-
     }
 }

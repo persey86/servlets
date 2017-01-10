@@ -12,10 +12,10 @@ import java.util.List;
  * Created on 2017.
  */
 public class UserRepository {
-
     public List<User> getUsers() {
         Connection connection = null;
         List<User> users = new ArrayList<>();
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
@@ -45,7 +45,6 @@ public class UserRepository {
                 }
             }
         }
-
         return users;
     }
 
@@ -86,7 +85,6 @@ public class UserRepository {
         return user;
     }
 
-
     public Boolean updateUser(Integer id, String userName, String userSurname, String userEmail, java.util.Date created, Integer departmentId) {
         Connection connection = null;
         try {
@@ -123,9 +121,6 @@ public class UserRepository {
         return false;
     }
 
-
-
-
     public User saveUser(String userName, String userSurname, String userEmail, java.util.Date created, Integer departmentId) {
         Connection connection = null;
         User user = new User();
@@ -158,7 +153,6 @@ public class UserRepository {
                 }
             }
         }
-
         return user;
     }
 
@@ -188,7 +182,6 @@ public class UserRepository {
                 }
             }
         }
-
         return false;
     }
 }

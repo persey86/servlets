@@ -6,6 +6,7 @@ import java.util.Date;
  * Created 2017.
  */
 public class Department {
+
     private Integer id;
     private String name;
     private Date created;
