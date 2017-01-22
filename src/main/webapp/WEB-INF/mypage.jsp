@@ -44,14 +44,13 @@
 
     <div class="row">
         <table>
+
             <tr>
-                <td>id</td>
-                <td>Name</td>
-                <td>Surname</td>
-                <td>Email</td>
-                <td>Created</td>
-                <td></td>
-                <td></td>
+                <th>id</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Created</th>
             </tr>
             <c:forEach var="u" items="${requestScope.users}">
                 <tr>
@@ -78,8 +77,12 @@
             <input type="text" placeholder="Name" name="userName"/>
             <input type="text" placeholder="Surname" name="userSurname"/>
             <input type="text" placeholder="Email" name="userEmail"/>
-            <%--<input type="date" placeholder="created" name="created" />--%>
-            <input type="text" placeholder="departmentId" name="departmentId" value="4"/>
+            <select name='departmentId'>
+                <option value="${selected}" selected>${selected}</option>
+                <c:forEach items="${departments}" var="department">
+                        <option value="${department.id}">${department.name}</option>
+                </c:forEach>
+            </select>
             <input type="submit" value="Add user"/>
         </form>
 

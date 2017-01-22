@@ -15,8 +15,7 @@ public class DepartmentRepository {
         Connection connection = null;
         List<Department> departments = new ArrayList<>();
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+            connection = getConnection();
             PreparedStatement pStm = connection.prepareStatement("SELECT * from departments");
             ResultSet rs = pStm.executeQuery();
             while (rs.next()) {
@@ -47,8 +46,7 @@ public class DepartmentRepository {
     Department department = new Department();
     try
     {
-        Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+        connection = getConnection();
         PreparedStatement pStm = connection.prepareStatement("INSERT INTO departments (name, created) VALUES (?, ?)");
         pStm.setString(1, name);
         pStm.setDate(2, new java.sql.Date(created.getTime()));
@@ -77,8 +75,7 @@ public class DepartmentRepository {
     public boolean deleteDepartment(Integer id) {
         Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+            connection = getConnection();
             PreparedStatement pStm = connection.prepareStatement("DELETE FROM departments WHERE id= ?");
             pStm.setInt(1, id);
             int executeUpdate = pStm.executeUpdate();
@@ -107,8 +104,7 @@ public class DepartmentRepository {
         Connection connection = null;
         Department department = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+            connection = getConnection();
             PreparedStatement pStm = connection.prepareStatement("SELECT * from departments where departments.id = ?");
             pStm.setInt(1, id);
             ResultSet rs = pStm.executeQuery();
@@ -140,8 +136,7 @@ public class DepartmentRepository {
     public Boolean updateDepartment(Integer id, String name, Date created) {
             Connection connection = null;
             try {
-                Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+                connection = getConnection();
                 PreparedStatement pStm = connection.prepareStatement("UPDATE departments SET id = ?, name = ?, created = ? WHERE id = ?");
                 pStm.setInt(1, id);
                 pStm.setString(2, name);
@@ -166,5 +161,10 @@ public class DepartmentRepository {
                 }
             }
             return false;
+    }
+
+    private Connection getConnection() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/us_states", "root", "root");
     }
 }

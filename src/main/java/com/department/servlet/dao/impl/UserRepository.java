@@ -17,8 +17,7 @@ public class UserRepository {
         List<User> users = new ArrayList<>();
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+            connection = getConnection();
             PreparedStatement pStm = connection.prepareStatement("SELECT * from users u");
             ResultSet rs = pStm.executeQuery();
             while (rs.next()) {
@@ -28,7 +27,7 @@ public class UserRepository {
                 user.setSurname(rs.getString("surname"));
                 user.setEmail(rs.getString("email"));
                 user.setCreated(rs.getDate("created"));
-                user.setDepartmentId(rs.getInt("department_id"));
+                user.setDepartmentId(rs.getInt("departments_id"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -48,12 +47,16 @@ public class UserRepository {
         return users;
     }
 
+    private Connection getConnection() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/us_states", "root", "root");
+    }
+
     public User getUserById(Integer id) {
         Connection connection = null;
         User user = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+            connection = getConnection();
             PreparedStatement pStm = connection.prepareStatement("SELECT * from users u where u.id = ?");
             pStm.setInt(1, id);
             ResultSet rs = pStm.executeQuery();
@@ -88,8 +91,7 @@ public class UserRepository {
     public Boolean updateUser(Integer id, String userName, String userSurname, String userEmail, java.util.Date created, Integer departmentId) {
         Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+            connection = getConnection();
 
             PreparedStatement pStm = connection.prepareStatement("UPDATE users SET name = ?, surname = ?, email = ?,created = ?, department_id = ? WHERE id = ?");
             pStm.setString(1, userName);
@@ -125,9 +127,8 @@ public class UserRepository {
         Connection connection = null;
         User user = new User();
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
-            PreparedStatement pStm = connection.prepareStatement("INSERT INTO users (name, surname, email, created, department_id) VALUES (?, ?, ?, ?, ?)");
+            connection = getConnection();
+            PreparedStatement pStm = connection.prepareStatement("INSERT INTO users (name, surname, email, created, departments_id) VALUES (?, ?, ?, ?, ?)");
             pStm.setString(1, userName);
             pStm.setString(2, userSurname);
             pStm.setString(3, userEmail);
@@ -160,8 +161,7 @@ public class UserRepository {
     public Boolean deleteUser(Integer id){
         Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mytest", "root", "root");
+            connection = getConnection();
             PreparedStatement pStm = connection.prepareStatement("DELETE FROM users WHERE id= ?");
             pStm.setInt(1, id);
             int executeUpdate = pStm.executeUpdate();

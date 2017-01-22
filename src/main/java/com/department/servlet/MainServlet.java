@@ -18,10 +18,14 @@ import java.util.List;
  */
 public class MainServlet extends HttpServlet {
 
-    private UserRepository userRepository = new UserRepository();
+
 
     public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        UserRepository userRepository = new UserRepository();
+        DepartmentRepository departmentRepository = new DepartmentRepository();
+
 
         String uri = request.getRequestURI();
         String method = request.getMethod();
@@ -29,8 +33,10 @@ public class MainServlet extends HttpServlet {
 
         if (uri.equals("/") && method.equals("GET")) {
             List<User> users = userRepository.getUsers();
+            List<Department> departments = departmentRepository.getDepartments();
             request.setAttribute("name", "Devcolibri");
             request.setAttribute("users", users);
+            request.setAttribute("departments", departments);
             request.getRequestDispatcher("/WEB-INF/mypage.jsp").forward(request, response);
         } else if (uri.equals("/users") && method.equals("POST")) {
 
@@ -78,7 +84,6 @@ public class MainServlet extends HttpServlet {
         }
 
 
-        DepartmentRepository departmentRepository = new DepartmentRepository();
 
 
         if (uri.equals("/") && method.equals("GET")) {

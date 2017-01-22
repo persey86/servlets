@@ -17,7 +17,6 @@
 <form method="post" action="<c:url value='/departments' />">
     <input type="hidden" name="id" value="${requestScope.currentDepartment.id}">
     <input type="text" placeholder="Name" name="name" value="${requestScope.currentDepartment.name}"/>
-    <%--<input type="date" placeholder="created" name="created" value="${requestScope.currentUser.created}" />--%>
     <input type="submit" value="Update department"/>
 </form>
 

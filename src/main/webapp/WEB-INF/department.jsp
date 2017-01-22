@@ -10,14 +10,13 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
-</head>
+    </head>
 <body>
 
 <div class="main container">
 
     <div class="row">
         <h1>Department ${requestScope.name}</h1>
-
 
     </div>
 
@@ -51,16 +50,13 @@
     <div class="row">
         <form method="post" action="<c:url value='/department' />">
             <input type="text" placeholder="Name" name="name"/>
-            <%--<input type="date" placeholder="created" name="created" />--%>
             <input type="text" placeholder="id" name="id" value="1"/>
             <input type="submit" value="Add user"/>
         </form>
 
     </div>
 
-
 </div>
-
 
 </body>
 </html>
