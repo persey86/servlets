@@ -38,20 +38,11 @@
 
     <div class="row">
         <h1>Personal List of Department ${requestScope.name}</h1>
-
-
     </div>
 
     <div class="row">
         <table>
 
-            <tr>
-                <th>id</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Email</th>
-                <th>Created</th>
-            </tr>
             <c:forEach var="u" items="${requestScope.users}">
                 <tr>
                     <td>${u.id}</td>

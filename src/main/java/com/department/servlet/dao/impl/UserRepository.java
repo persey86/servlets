@@ -1,7 +1,5 @@
 package com.department.servlet.dao.impl;
 
-
-
 import com.department.servlet.entities.User;
 
 import java.sql.*;
