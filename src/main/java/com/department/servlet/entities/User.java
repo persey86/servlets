@@ -12,6 +12,7 @@ public class User {
         private String surname;
         private String email;
         private Date created;
+    private Integer age;
 
         public Integer getId() {
             return id;
@@ -58,5 +59,13 @@ public class User {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

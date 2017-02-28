@@ -35,35 +35,56 @@
 <div class="main container">
 
     <div class="row">
-        <h1>Personal List of Department </h1>
+        <h1>Personal List of Department: ${departmentById.name} </h1>
     </div>
+
+
+
 
     <div class="row">
         <table class="table table-bordered">
-            <c:forEach var="dep" items="${departments}">
+
+            <c:forEach var="u" items="${users}">
                 <tr>
-                    <td>${dep.id}</td>
-                    <td>${dep.name}</td>
-                    <td><a class="btn btn-primary" href="/department/edit/${dep.id}">Edit</a></td>
+                    <td>${u.id}</td>
+                    <td>${u.name}</td>
+                    <td>${u.surname}</td>
+                    <td>${u.email}</td>
+                    <td>${u.created}</td>
+                    <td>${u.age}</td>
+                    <td><a class="btn btn-primary" href="/user/edit/${u.id}">Edit</a></td>
                     <td>
-                        <form method="post" action="<c:url value='/department/delete' />">
-                            <input type="hidden" name="departmentId" value="${dep.id}">
-                            <input class="btn btn-primary" type="submit" value="Delete department"/>
+                        <form method="post" action="<c:url value='/user/delete' />">
+                            <input type="hidden" name="departmentId" value="${u.id}">
+                            <input class="btn btn-primary" type="submit" value="Delete user"/>
                         </form>
                     </td>
-                    <td><a class="btn btn-primary" href="/users/departmentId/${dep.id}">Show users</a></td>
                 </tr>
-
             </c:forEach>
+
         </table>
     </div>
 
     <div class="row">
-        <form method="post" action="<c:url value='/departments' />">
-            <input type="text" placeholder="Name" name="departmentName"/>
-            <input class="btn btn-success" type="submit" value="Add department"/>
+        <form method="post" action="<c:url value='/users' />">
+            <input type="text" placeholder="Name" name="userName"/>
+            <input type="text" placeholder="Surname" name="userSurname"/>
+            <input type="text" placeholder="Email" name="userEmail"/>
+            <input type="date" placeholder="Date" name="userDate"/>
+            <input type="text" placeholder="Age" name="userAge"/>
+            <select name='departmentId'>
+                <option value="${selected}" selected>${selected}</option>
+                <c:forEach items="${departments}" var="department">
+                    <option value="${department.id}">${department.name}</option>
+                </c:forEach>
+            </select>
+            <input class="btn btn-primary" type="submit" value="Add user"/>
         </form>
+
     </div>
+
+
+</div>
 
 
 </body>
