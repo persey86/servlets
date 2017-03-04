@@ -165,40 +165,6 @@ public class MainServlet extends HttpServlet {
 
     }
 }
-//            if (id == null) {
-//                // if there is no id we create new user
-//                departmentRepository.saveDepartment(name, new Date());
-//            } else {
-//                // if id is not null we update user
-//                Integer idInt = Integer.parseInt(id);
-//                Boolean aBoolean = departmentRepository.updateDepartment(idInt, name, new Date());
-//                if (!aBoolean) {
-//                    // if there is no updated rows in database - redirect to error page
-//                    response.sendRedirect("/error");
-//                }
-//            }
-//            response.sendRedirect("/");
-//
-//        } else if (uri.equals("/department/delete") && method.equals("POST")) {
-//            String id = request.getParameter("id");
-//            Integer idInt = Integer.parseInt(id);
-//            departmentRepository.deleteDepartment(idInt);
-//            response.sendRedirect("/");
-//        } else if (uri.contains("/user/edit/") && method.equals("GET")) {
-//            String[] urlParams = uri.split("/");
-//            String id = urlParams[urlParams.length - 1];
-//            Integer idInt = Integer.parseInt(id);
-//
-//            Department currentDepartment = departmentRepository.getDepartmentById(idInt);
-//
-//            request.setAttribute("currentUser", currentDepartment);
-//            request.getRequestDispatcher("/WEB-INF/editDepartment.jsp").forward(request, response);
-//        } else if (uri.equals("/error")) {
-//            request.getRequestDispatcher("/WEB-INF/error.jsp").forward(request, response);
-//        } else {
-//            response.sendRedirect("/error");
-//        }
-//
-//    }
+
 
 
