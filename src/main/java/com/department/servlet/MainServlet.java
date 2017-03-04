@@ -49,6 +49,19 @@ public class MainServlet extends HttpServlet {
         }
 
 
+        if (uri.contains("/department/edit/") && method.equals("GET")) {
+            String[] urlParams = uri.split("/");
+            String departmentId = urlParams[urlParams.length - 1];
+            Integer departmentIdInt = Integer.parseInt(departmentId);
+
+
+            Department currentDepartment = departmentRepository.getDepartmentById(departmentIdInt);
+
+            request.setAttribute("currentDepartment", currentDepartment);
+            request.getRequestDispatcher("/WEB-INF/editDepartment.jsp").forward(request, response);
+        }
+
+
         if (uri.equals("/") && method.equals("GET")) {
             List<User> users = userRepository.getUsers();
             List<Department> departments = departmentRepository.getDepartments();
@@ -150,8 +163,9 @@ public class MainServlet extends HttpServlet {
         //here we creates new department
         if (uri.equals("/departments") && method.equals("POST")) {
 
-            String name = request.getParameter("departmentName");
-            departmentRepository.saveDepartment(name, new Date());
+            String name = request.getParameter("depname");
+            String id = request.getParameter("id");
+            departmentRepository.updateDepartment(Integer.parseInt(id), name, new Date());
             response.sendRedirect("/");
         }
 

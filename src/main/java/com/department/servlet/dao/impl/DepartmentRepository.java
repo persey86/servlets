@@ -141,6 +141,7 @@ public class DepartmentRepository {
                 pStm.setInt(1, id);
                 pStm.setString(2, name);
                 pStm.setDate(3, new java.sql.Date(created.getTime()));
+                pStm.setInt(4, id);
 
                 int executeUpdate = pStm.executeUpdate();
 
