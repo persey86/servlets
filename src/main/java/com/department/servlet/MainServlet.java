@@ -82,14 +82,13 @@ public class MainServlet extends HttpServlet {
             String age = request.getParameter("userAge");
 
             boolean departmentIdeValid = departmentId.matches("(?<=\\s|^)\\d+(?=\\s|$)");
-            boolean userEmailValid = userEmail.matches("\"^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(?:\\\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\\\.)*(?:aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$\";");
+            boolean userEmailValid = userEmail.matches("^[a-z0-9_\\-\\.]{2,}@[a-z0-9_\\-\\.]{2,}\\.[a-z]{2,}$");
 
 
             if (departmentIdeValid && userEmailValid) {
                 Integer departmentIdInt = Integer.parseInt(departmentId);
                 Integer ageInt = Integer.parseInt(age);
 
-                //   response.sendRedirect("/error");
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
