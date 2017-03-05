@@ -13,11 +13,14 @@
 <h1>Edit user with id = ${requestScope.currentUser.id}</h1>
 
 
+
 <form method="post" action="<c:url value='/users' />">
     <input type="hidden" name="id" value="${requestScope.currentUser.id}">
     <input type="text" placeholder="Name" name="userName" value="${requestScope.currentUser.name}"/>
     <input type="text" placeholder="Surname" name="userSurname" value="${requestScope.currentUser.surname}"/>
     <input type="text" placeholder="Email" name="userEmail" value="${requestScope.currentUser.email}"/>
+    <input type="date" placeholder="Date" name="userDate" value="${requestScope.currentUser.created}" />
+    <input type="text" placeholder="Age" name="userAge" value="${requestScope.currentUser.age}"/>
     <input type="text" placeholder="departmentId" name="departmentId" value="${requestScope.currentUser.departmentId}" />
     <input type="submit" value="Update user"/>
 </form>

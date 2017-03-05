@@ -99,8 +99,8 @@ public class UserRepository {
             pStm.setString(3, userEmail);
             pStm.setDate(4, new java.sql.Date(created.getTime()));
             pStm.setInt(5, departmentId);
-            pStm.setInt(6, id);
-            pStm.setInt(7, age);
+            pStm.setInt(6, age);
+            pStm.setInt(7, id);
 
             int executeUpdate = pStm.executeUpdate();
 
@@ -222,5 +222,80 @@ public class UserRepository {
             }
         }
         return users;
+    }
+
+    public User getUserByEmail(String email) {
+        Connection connection = null;
+        User user = null;
+        try {
+            connection = getConnection();
+            PreparedStatement pStm = connection.prepareStatement("SELECT * from users u where u.email = ?");
+            pStm.setString(1, email);
+            ResultSet rs = pStm.executeQuery();
+
+            while (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setSurname(rs.getString("surname"));
+                user.setEmail(rs.getString("email"));
+                user.setCreated(rs.getDate("created"));
+                user.setDepartmentId(rs.getInt("department_id"));
+                user.setAge(rs.getInt("age"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("it will never be");
+                }
+            }
+        }
+
+        return user;
+    }
+
+    public User getUserByEmailNotID(Integer id, String email) {
+        Connection connection = null;
+        User user = null;
+        try {
+            connection = getConnection();
+            PreparedStatement pStm = connection.prepareStatement("SELECT * from users u where u.id <> ? AND u.email = ?");
+            pStm.setInt(1, id);
+            pStm.setString(2, email);
+            ResultSet rs = pStm.executeQuery();
+
+            while (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setSurname(rs.getString("surname"));
+                user.setEmail(rs.getString("email"));
+                user.setCreated(rs.getDate("created"));
+                user.setDepartmentId(rs.getInt("department_id"));
+                user.setAge(rs.getInt("age"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("it will never be");
+                }
+            }
+        }
+
+        return user;
     }
 }

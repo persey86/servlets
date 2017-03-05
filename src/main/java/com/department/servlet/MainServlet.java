@@ -102,18 +102,32 @@ public class MainServlet extends HttpServlet {
 
 
                 if (id == null) {
+
                     // if there is no id we create new user
-                    userRepository.saveUser(userName, userSurname, userEmail, dateType, departmentIdInt, ageInt);
+                    User userByEmail = userRepository.getUserByEmail(userEmail);
+                    if (userByEmail == null) {
+                        userRepository.saveUser(userName, userSurname, userEmail, dateType, departmentIdInt, ageInt);
+
+                    }
+                    response.sendRedirect("/users/departmentId/" + departmentId);
+
+
+
                 } else {
+
                     // if id is not null we update user
                     Integer idInt = Integer.parseInt(id);
-                    Boolean isSaved = userRepository.updateUser(idInt, userName, userSurname, userEmail, dateType, departmentIdInt, ageInt);
-                    if (!isSaved) {
-                        // if there is no updated rows in database - redirect to error page
-                        response.sendRedirect("/error");
+                    User userByEmailNotID = userRepository.getUserByEmailNotID(idInt, userEmail);
+                    if (userByEmailNotID==null) {
+                        userRepository.updateUser(idInt, userName, userSurname, userEmail, dateType, departmentIdInt, ageInt);
+                        response.sendRedirect("/users/departmentId/" + departmentId);
+                    }else{
+                        response.sendRedirect("/user/edit/" + id);
                     }
+
+
                 }
-                response.sendRedirect("/");
+
             } else {
                 if (id != null) {
                     response.sendRedirect("/user/edit/" + id);
