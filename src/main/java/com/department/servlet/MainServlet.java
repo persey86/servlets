@@ -22,7 +22,7 @@ public class MainServlet extends HttpServlet {
 
 
     public void service(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
 
         UserRepository userRepository = new UserRepository();
         DepartmentRepository departmentRepository = new DepartmentRepository();
@@ -36,7 +36,7 @@ public class MainServlet extends HttpServlet {
             String departmentId = urlParams[urlParams.length - 1];
             Integer departmentIdInt = Integer.parseInt(departmentId);
 
-            List<User> users = userRepository.getUsersByDepartmentId(departmentIdInt);
+            List<User> users = userRepository.getUsersByDepartmentId(departmentIdInt) ;
 
             Department departmentById = departmentRepository.getDepartmentById(departmentIdInt);
 

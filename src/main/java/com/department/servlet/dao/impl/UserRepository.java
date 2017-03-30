@@ -48,7 +48,7 @@ public class UserRepository {
 
     private Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/us_states", "root", "root");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/deppMySQL", "root", "1");
     }
 
     public User getUserById(Integer id) {
