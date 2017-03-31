@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>MainServlet</servlet-name>
-        <servlet-class>com.department.servlet.MainServlet</servlet-class>
+        <servlet-class>com.department.servlet.servlet.MainServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

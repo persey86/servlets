@@ -1,4 +1,4 @@
-package com.department.servlet;
+package com.department.servlet.servlet;
 
 import com.department.servlet.dao.impl.DepartmentRepository;
 import com.department.servlet.dao.impl.UserRepository;
@@ -16,13 +16,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created on 06.07.2016.
+ * Created on 31.03.17.
  */
 public class MainServlet extends HttpServlet {
 
-
     public void service(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
+            throws ServletException, IOException {
 
         UserRepository userRepository = new UserRepository();
         DepartmentRepository departmentRepository = new DepartmentRepository();
@@ -36,7 +35,7 @@ public class MainServlet extends HttpServlet {
             String departmentId = urlParams[urlParams.length - 1];
             Integer departmentIdInt = Integer.parseInt(departmentId);
 
-            List<User> users = userRepository.getUsersByDepartmentId(departmentIdInt) ;
+            List<User> users = userRepository.getUsersByDepartmentId(departmentIdInt);
 
             Department departmentById = departmentRepository.getDepartmentById(departmentIdInt);
 
@@ -176,9 +175,9 @@ public class MainServlet extends HttpServlet {
         //here we creates new department
         if (uri.equals("/departments") && method.equals("POST")) {
 
-            String name = request.getParameter("depname");
+            String name = request.getParameter("departmentName");
             String id = request.getParameter("id");
-            departmentRepository.updateDepartment(Integer.parseInt(id), name, new Date());
+            departmentRepository.saveDepartment(name, new Date());
             response.sendRedirect("/");
         }
 
@@ -192,6 +191,3 @@ public class MainServlet extends HttpServlet {
 
     }
 }
-
-
-

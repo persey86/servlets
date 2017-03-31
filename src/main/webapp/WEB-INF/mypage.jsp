@@ -26,7 +26,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="<c:url value='/departments' />">Home</a></li>
+                <li class="active"><a href="<c:url value='/' />">Home</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -44,7 +44,7 @@
                 <tr>
                     <td>${dep.id}</td>
                     <td>${dep.name}</td>
-                    <td><a class="btn btn-primary" href="/department/edit/${department.id}">Edit</a></td>
+                    <td><a class="btn btn-primary" href="/department/edit/${dep.id}">Edit</a></td>
                     <td>
                         <form method="post" action="<c:url value='/department/delete' />">
                             <input type="hidden" name="departmentId" value="${dep.id}">

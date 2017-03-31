@@ -13,7 +13,7 @@
 
 <form method="post" action="<c:url value='/departments' />">
     <input type="hidden" name="id" value="${requestScope.currentDepartment.id}">
-    <input type="text" placeholder="Name" name="depname" value="${requestScope.currentDepartment.name}"/>
+    <input type="text" placeholder="Name" name="departmentName" value="${requestScope.currentDepartment.name}"/>
     <input type="submit" value="Update department"/>
 </form>
 

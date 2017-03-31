@@ -1,3 +1,6 @@
+/**
+* Created by user on 30.03.17.
+*/
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -5,7 +8,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
-    </head>
+</head>
 <body>
 
 <div class="main container">
